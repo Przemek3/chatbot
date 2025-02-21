@@ -20,4 +20,8 @@
     <Folder Include="Application\Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChatbotIntegration\ChatbotIntegration.csproj" />
+  </ItemGroup>
+
 </Project>

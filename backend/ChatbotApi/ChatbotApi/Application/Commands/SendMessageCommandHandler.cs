@@ -1,6 +1,7 @@
 ﻿using ChatbotApi.Application.Dtos;
 using ChatbotApi.Domain.Entities;
 using ChatbotApi.Domain.Interfaces;
+using ChatbotIntegration;
 using MediatR;
 
 namespace ChatbotApi.Application.Commands
@@ -29,8 +30,6 @@ namespace ChatbotApi.Application.Commands
 
             // Generujemy odpowiedź przy pomocy serwisu chatbota
             var botResponse = await _chatbotService.GetResponseAsync(request.Text);
-
-            // Możemy także zapisać odpowiedź chatbota, jeśli jest to wymagane
 
             // Zwracamy odpowiedź
             return new SendMessageResponse

@@ -1,4 +1,5 @@
 using ChatbotApi.Infra.Repositories;
+using ChatbotIntegration;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -16,6 +17,12 @@ string connectionString = builder.Configuration.GetConnectionString("SqlServerCo
 // Rejestracja DbContext dla SQL Server
 builder.Services.AddDbContext<ChatDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddHttpClient<IChatbotService, AwsChatbotService>(client =>
+{
+    // Mo¿esz ustawiæ domyœlny adres bazowy, jeœli to ma sens
+    client.BaseAddress = new Uri("https://api.aws.example.com/");
+});
 
 var app = builder.Build();
 
