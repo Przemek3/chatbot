@@ -3,9 +3,9 @@ using MediatR;
 
 namespace ChatbotApi.Application.Commands
 {
-    public class SendMessageCommand : IRequest<SendMessageResponse>
+    public class SendUserMessageCommand : IRequest<ChatResponse>
     {
-        public Guid ConversationId { get; set; }
+        public Guid? ConversationId { get; set; }
         public string Text { get; set; }
     }
 }

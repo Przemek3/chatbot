@@ -18,6 +18,6 @@
         public string? Status { get; set; }
 
         // Nawigacyjna właściwość do powiązanych wiadomości.
-        public ICollection<Message> Messages { get; set; } = new List<Message>();
+        public ICollection<Question> Messages { get; set; } = new List<Question>();
     }
 }

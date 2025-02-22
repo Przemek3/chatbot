@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using Microsoft.Extensions.Options;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,11 @@ namespace ChatbotIntegration
         private readonly string _endpointUrl;
         private readonly string _apiKey;
 
-        public AwsChatbotService(HttpClient httpClient, string endpointUrl, string apiKey)
+        public AwsChatbotService(HttpClient httpClient, IOptions<AwsChatbotSettings> settings)
         {
             _httpClient = httpClient;
-            _endpointUrl = endpointUrl;
-            _apiKey = apiKey;
+            _endpointUrl = settings.Value.EndpointUrl;
+            _apiKey = settings.Value.ApiKey;
         }
 
         public async Task<string> GetResponseAsync(string message)

@@ -10,7 +10,8 @@ namespace ChatbotApi.Infra.Repositories
         {
         }
 
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
     }
 }
