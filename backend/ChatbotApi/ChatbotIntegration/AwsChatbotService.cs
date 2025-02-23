@@ -4,6 +4,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace ChatbotIntegration
 {
@@ -22,27 +24,33 @@ namespace ChatbotIntegration
 
         public async Task<string> GetResponseAsync(string message)
         {
-            // Tworzymy payload zgodnie z wymaganiami API
-            var requestPayload = new { prompt = message };
+            var requestBody = new
+            {
+                inputs = message,
+            };
 
-            // Serializacja do JSON
-            var json = JsonConvert.SerializeObject(requestPayload);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var jsonContent = JsonConvert.SerializeObject(requestBody);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            // Dodajemy nagłówek autoryzacji, jeśli jest wymagany
+            // Dodanie nagłówka autoryzacji
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-            // Wysyłamy zapytanie POST do endpointa API
             var response = await _httpClient.PostAsync(_endpointUrl, content);
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                // Możesz tutaj dodać logikę przetwarzania odpowiedzi (np. deserializację)
-                return responseContent;
-            }
+                JArray jsonArray = JArray.Parse(responseContent);
 
-            return "Błąd podczas komunikacji z usługą AI";
+                // Pobranie wartości pola "generated_text"
+                string extractedText = jsonArray[0]["generated_text"]?.ToString();
+                return extractedText;
+            }
+            else
+            {
+                // Zwracamy błąd jeśli zapytanie się nie powiedzie
+                return $"Błąd API: {response.StatusCode}, {await response.Content.ReadAsStringAsync()}";
+            }
         }
     }
 }

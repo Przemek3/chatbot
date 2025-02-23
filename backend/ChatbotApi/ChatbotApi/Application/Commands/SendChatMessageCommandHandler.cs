@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ChatbotApi.Application.Commands
 {
-    public class SendChatMessageCommandHandler : IRequestHandler<SendChatMessageCommand, MessageSavedResponse>
+    public class SendChatMessageCommandHandler : IRequestHandler<SendChatMessageCommand, BotMessageSavedResponse>
     {
         private readonly IAnswerRepository _chatRepository;
 
@@ -15,7 +15,7 @@ namespace ChatbotApi.Application.Commands
             _chatRepository = messageRepository;
         }
 
-        public async Task<MessageSavedResponse> Handle(SendChatMessageCommand request, CancellationToken cancellationToken)
+        public async Task<BotMessageSavedResponse> Handle(SendChatMessageCommand request, CancellationToken cancellationToken)
         {
             var conversationId = request.ConversationId;
 
@@ -33,9 +33,10 @@ namespace ChatbotApi.Application.Commands
             //var botResponse = await _chatbotService.GetResponseAsync(request.Text);
 
             // Zwracamy odpowiedź
-            return new MessageSavedResponse
+            return new BotMessageSavedResponse
             {
-                OriginalMessageId = message.Id,
+                BotMessageId = message.Id,
+                OriginalMessageId = request.QuestionId,
                 CreatedAt = DateTime.UtcNow,
                 ConversationId = message.ConversationId
             };
