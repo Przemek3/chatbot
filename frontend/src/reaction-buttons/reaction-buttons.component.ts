@@ -11,25 +11,34 @@ import { ChatHistoryNode } from "../models/chat-history";
   standalone: true
 })
 export class ReactionButtons {
-    @Input() chatHistoryNode: ChatHistoryNode = new ChatHistoryNode();
-    constructor(private chatbotService: ChatbotService) { }
+
+  @Input() chatHistoryNode: ChatHistoryNode = new ChatHistoryNode();
+  constructor(private chatbotService: ChatbotService) { }
     
   selectReaction(reaction: string): void {
     if(this.chatHistoryNode.botMessage != undefined && this.chatHistoryNode.botMessage.messageId != undefined)
     {
+        var reactionNumber = 0; // 0 - brak reakcji, 1 - like, 2 - dislike
         this.chatHistoryNode.botMessage.selectedReaction = this.chatHistoryNode.botMessage.selectedReaction === reaction ? null : reaction;
         switch (this.chatHistoryNode.botMessage.selectedReaction) {
         case null:
-          this.chatbotService.sendReaction(this.chatHistoryNode.botMessage.messageId,0);
+          reactionNumber = 0;
           break;
         case 'like':
-          this.chatbotService.sendReaction(this.chatHistoryNode.botMessage.messageId,1);
+          reactionNumber = 1;
           break;
         case 'dislike':
-          this.chatbotService.sendReaction(this.chatHistoryNode.botMessage.messageId,2);
+          reactionNumber = 2;
           break;
-        default:
-      }
+        }
+        this.chatbotService.sendReaction(this.chatHistoryNode.botMessage.messageId, reactionNumber).subscribe({
+          next: (response) => {
+            console.log('Odpowiedź z serwera:', response);
+          },
+          error: (error) => {
+            console.error('Błąd:', error);
+          }
+        });
     }
-}
+  }
 }
