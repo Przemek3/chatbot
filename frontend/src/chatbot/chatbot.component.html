@@ -11,18 +11,7 @@
         <strong>Bot:</strong> {{ chat.botMessage?.text }}
       </div>
       <div class="reactions" *ngIf="chat.botMessage != null && !chat.botMessage.hideReactions">
-        <button 
-          class="reaction-btn" 
-          [class.active]="chat.botMessage.selectedReaction === 'like'" 
-          (click)="chat.selectReaction('like')">
-          👍
-        </button>
-        <button 
-          class="reaction-btn" 
-          [class.active]="chat.botMessage.selectedReaction === 'dislike'" 
-          (click)="chat.selectReaction('dislike')">
-          👎
-        </button>
+        <reaction-buttons [chatHistoryNode]="chat"></reaction-buttons>
       </div>
     </div>
   </mat-card-content>

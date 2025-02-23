@@ -1,7 +1,7 @@
 export interface ChatResponse
 {
-    UserMessageId: string;
-    ResponseText: string;
-    CreatedAt: Date;
-    ConversationId: string;
+    userMessageId: string;
+    responseText: string;
+    createdAt: Date;
+    conversationId: string;
 }

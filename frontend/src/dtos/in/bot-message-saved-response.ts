@@ -1,6 +1,6 @@
 export interface BotMessageSavedResponse {
-    BotMessageId: string;
-    OriginalMessageId: string;
-    CreatedAt: Date;
-    ConversationId: string;
+    botMessageId: string;
+    originalMessageId: string;
+    oreatedAt: Date;
+    conversationId: string;
 }

@@ -17,12 +17,9 @@ namespace ChatbotApi.Application.Commands
 
         public async Task<BotMessageSavedResponse> Handle(SendChatMessageCommand request, CancellationToken cancellationToken)
         {
-            var conversationId = request.ConversationId;
-
             // Zapisujemy oryginalną wiadomość w bazie
             var message = new Answer
             {
-                ConversationId = conversationId,
                 QuestionId = request.QuestionId,
                 Text = request.Text,
                 CreatedAt = DateTime.UtcNow
@@ -37,8 +34,7 @@ namespace ChatbotApi.Application.Commands
             {
                 BotMessageId = message.Id,
                 OriginalMessageId = request.QuestionId,
-                CreatedAt = DateTime.UtcNow,
-                ConversationId = message.ConversationId
+                CreatedAt = DateTime.UtcNow
             };
         }
     }

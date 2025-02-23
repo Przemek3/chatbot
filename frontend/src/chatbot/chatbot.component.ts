@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ChatHistoryNode } from '../models/chat-history';
 import { BotMessageSavedResponse } from '../dtos/in/bot-message-saved-response';
+import { ReactionButtons } from "../reaction-buttons/reaction-buttons.component";
 
 @Component({
   selector: 'app-chatbot',
@@ -22,7 +23,8 @@ import { BotMessageSavedResponse } from '../dtos/in/bot-message-saved-response';
     MatButtonModule,
     CommonModule,
     FormsModule,
-  ],
+    ReactionButtons
+],
   standalone: true
 })
 export class ChatbotComponent implements OnInit {
@@ -42,7 +44,7 @@ export class ChatbotComponent implements OnInit {
 
 
       // Dodaj wiadomość użytkownika do historii
-      this.chatHistory.push((new ChatHistoryNode(this.chatbotService)).addUserMessageText(messageToSend));
+      this.chatHistory.push((new ChatHistoryNode()).addUserMessageText(messageToSend));
  
       // Wyczyść pole wejściowe
       this.userMessage = '';
@@ -50,7 +52,11 @@ export class ChatbotComponent implements OnInit {
       this.chatbotService.sendUserMessage(this.conversationId, messageToSend).subscribe({
         next: (response) => {
           console.log('Odpowiedź z serwera:', response);
-          this.chatHistory[this.chatHistory.length - 1].userMessage!.messageId = response.messageId;
+          if(this.conversationId == undefined)
+          {
+            this.conversationId = response.conversationId;
+          }
+          this.chatHistory[this.chatHistory.length - 1].userMessage!.messageId = response.userMessageId;
           this.simulateTypingEffect(response.responseText || 'Brak odpowiedzi');
         },
         error: (error) => {
@@ -82,7 +88,7 @@ export class ChatbotComponent implements OnInit {
           this.chatHistory[this.chatHistory.length - 1].userMessage!.messageId ?? '3fa85f64-5717-4562-b3fc-2c963f66afa6', 
           this.chatHistory[this.chatHistory.length - 1].botMessage!.text!).subscribe({
             next: (response: BotMessageSavedResponse) => {
-              this.chatHistory[this.chatHistory.length - 1].botMessage!.messageId = response.BotMessageId;
+              this.chatHistory[this.chatHistory.length - 1].botMessage!.messageId = response.botMessageId;
             },
             error: (error) => {
               console.error('Błąd:', error);
@@ -93,7 +99,7 @@ export class ChatbotComponent implements OnInit {
     }, 5); // Czas między literami (możesz dostosować)
   }
 
-  stopGenerating() {
+  stopGenerating() : void {
     this.index = 100000;;
     this.isGenerating = false;
   }

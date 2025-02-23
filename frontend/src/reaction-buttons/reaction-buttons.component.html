@@ -1,0 +1,14 @@
+<div> 
+    <button 
+        class="reaction-btn" 
+        [class.active]="chatHistoryNode.botMessage!.selectedReaction === 'like'" 
+        (click)="selectReaction('like')">
+        👍
+    </button>
+    <button 
+        class="reaction-btn" 
+        [class.active]="chatHistoryNode.botMessage!.selectedReaction === 'dislike'" 
+        (click)="selectReaction('dislike')">
+        👎
+    </button>
+</div>

@@ -17,30 +17,24 @@ namespace ChatbotApi.Controllers
         }
 
         [HttpPost("/messages/user")]
-        public async Task<IActionResult> SendUserMessage(Guid? conversationId, [FromBody] SendUserMessageCommand command)
+        public async Task<IActionResult> SendUserMessage([FromBody] SendUserMessageCommand command)
         {
-            command.ConversationId = conversationId;
-
             var response = await _mediator.Send(command);
 
             return Ok(response);
         }
 
         [HttpPost("/messages/chat")]
-        public async Task<IActionResult> SendChatMessage(Guid conversationId, [FromBody] SendChatMessageCommand command)
+        public async Task<IActionResult> SendChatMessage([FromBody] SendChatMessageCommand command)
         {
-            command.ConversationId = conversationId;
-
             var response = await _mediator.Send(command);
 
             return Ok(response);
         }
 
         [HttpPost("/messages/reaction")]
-        public async Task<IActionResult> SendUserReaction(Guid answerId, [FromBody] SendUserReactionCommand command)
+        public async Task<IActionResult> SendUserReaction([FromBody] SendUserReactionCommand command)
         {
-            command.AnswerId = answerId;
-
             var response = await _mediator.Send(command);
             if(response == true)
                 return Ok();
