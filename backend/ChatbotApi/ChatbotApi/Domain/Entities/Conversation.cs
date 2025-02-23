@@ -1,5 +1,7 @@
 ﻿namespace ChatbotApi.Domain.Entities
 {
+    // Stworzyłem encję dla ewentualnej rozbudowy. W razie potrzeby pobierania starych konwersacji.
+    // To jest jeszcze do skończenia
     public class Conversation
     {
         // Unikalny identyfikator rozmowy.

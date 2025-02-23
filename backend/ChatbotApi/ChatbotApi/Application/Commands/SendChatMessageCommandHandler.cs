@@ -1,6 +1,6 @@
 ﻿using ChatbotApi.Application.Dtos;
 using ChatbotApi.Domain.Entities;
-using ChatbotApi.Domain.Interfaces;
+using ChatbotApi.Infra.Interfaces;
 using ChatbotIntegration;
 using MediatR;
 
@@ -17,17 +17,14 @@ namespace ChatbotApi.Application.Commands
 
         public async Task<BotMessageSavedResponse> Handle(SendChatMessageCommand request, CancellationToken cancellationToken)
         {
-            // Zapisujemy oryginalną wiadomość w bazie
             var message = new Answer
             {
                 QuestionId = request.QuestionId,
                 Text = request.Text,
                 CreatedAt = DateTime.UtcNow
             };
+            // Zapisujemy wiadomość w bazie
             await _chatRepository.AddAsync(message);
-
-            // Generujemy odpowiedź przy pomocy serwisu chatbota
-            //var botResponse = await _chatbotService.GetResponseAsync(request.Text);
 
             // Zwracamy odpowiedź
             return new BotMessageSavedResponse

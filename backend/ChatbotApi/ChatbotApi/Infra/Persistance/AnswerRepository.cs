@@ -1,6 +1,6 @@
 ﻿using ChatbotApi.Domain.Entities;
 using ChatbotApi.Domain.Enums;
-using ChatbotApi.Domain.Interfaces;
+using ChatbotApi.Infra.Interfaces;
 using ChatbotApi.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 

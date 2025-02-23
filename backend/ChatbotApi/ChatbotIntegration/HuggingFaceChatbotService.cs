@@ -9,13 +9,13 @@ using Newtonsoft.Json.Linq;
 
 namespace ChatbotIntegration
 {
-    public class AwsChatbotService : IChatbotService
+    public class HuggingFaceChatbotService : IChatbotService
     {
         private readonly HttpClient _httpClient;
         private readonly string _endpointUrl;
         private readonly string _apiKey;
 
-        public AwsChatbotService(HttpClient httpClient, IOptions<AwsChatbotSettings> settings)
+        public HuggingFaceChatbotService(HttpClient httpClient, IOptions<HuggingFaceChatbotSettings> settings)
         {
             _httpClient = httpClient;
             _endpointUrl = settings.Value.EndpointUrl;

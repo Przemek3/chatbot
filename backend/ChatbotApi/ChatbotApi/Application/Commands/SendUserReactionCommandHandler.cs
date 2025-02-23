@@ -1,5 +1,5 @@
 ﻿using ChatbotApi.Application.Dtos;
-using ChatbotApi.Domain.Interfaces;
+using ChatbotApi.Infra.Interfaces;
 using MediatR;
 
 namespace ChatbotApi.Application.Commands

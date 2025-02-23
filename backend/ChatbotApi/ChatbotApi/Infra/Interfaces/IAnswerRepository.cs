@@ -1,7 +1,7 @@
 ﻿using ChatbotApi.Domain.Entities;
 using ChatbotApi.Domain.Enums;
 
-namespace ChatbotApi.Domain.Interfaces
+namespace ChatbotApi.Infra.Interfaces
 {
     public interface IAnswerRepository
     {

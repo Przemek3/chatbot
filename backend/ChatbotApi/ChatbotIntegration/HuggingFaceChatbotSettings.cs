@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChatbotIntegration
 {
-    public class AwsChatbotSettings
+    public class HuggingFaceChatbotSettings
     {
         public string EndpointUrl { get; set; }
         public string ApiKey { get; set; }

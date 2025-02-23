@@ -1,6 +1,6 @@
 ﻿using ChatbotApi.Domain.Entities;
 
-namespace ChatbotApi.Domain.Interfaces
+namespace ChatbotApi.Infra.Interfaces
 {
     public interface IQuestionRepository
     {

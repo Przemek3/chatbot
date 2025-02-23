@@ -1,8 +1,8 @@
 using ChatbotApi.Infra.Repositories;
 using ChatbotIntegration;
 using Microsoft.EntityFrameworkCore;
-using ChatbotApi.Domain.Interfaces;
 using ChatbotApi.Infra.Persistance;
+using ChatbotApi.Infra.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,9 +32,9 @@ builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
 
-builder.Services.Configure<AwsChatbotSettings>(
+builder.Services.Configure<HuggingFaceChatbotSettings>(
     builder.Configuration.GetSection("AwsChatbot"));
-builder.Services.AddHttpClient<IChatbotService, AwsChatbotService>();
+builder.Services.AddHttpClient<IChatbotService, HuggingFaceChatbotService>();
 
 var app = builder.Build();
 
