@@ -27,7 +27,7 @@ import { ReactionButtons } from "../reaction-buttons/reaction-buttons.component"
 ],
   standalone: true
 })
-export class ChatbotComponent implements OnInit {
+export class ChatbotComponent {
   userMessage: string = '';
   isGenerating: boolean = false;
   conversationId: string | undefined;
@@ -35,8 +35,6 @@ export class ChatbotComponent implements OnInit {
   index = 0;
 
   constructor(private chatbotService: ChatbotService) { }
-
-  ngOnInit(): void { }
 
   sendUserMessage(): void {
     if (this.userMessage.trim()) {
